@@ -9,6 +9,13 @@ export class FundPositionQueryDto {
    */
   @IsString()
   code: string;
+
+  /**
+   * 指定年份，如 "2026"
+   */
+  @IsOptional()
+  @IsString()
+  date?: string;
 }
 
 /**
