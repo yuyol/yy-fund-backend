@@ -1,6 +1,24 @@
 import { IsString, IsOptional } from 'class-validator';
 
 /**
+ * 基金实时估算查询参数
+ */
+export class FundRealTimeEstimateQueryDto {
+  /**
+   * 基金代码
+   */
+  @IsString()
+  code: string;
+
+  /**
+   * 指定年份，如 "2026"
+   */
+  @IsOptional()
+  @IsString()
+  date?: string;
+}
+
+/**
  * 基金持仓查询参数
  */
 export class FundPositionQueryDto {

@@ -1,6 +1,10 @@
 import { Controller, Get, Query } from '@nestjs/common';
 import { FundService } from './fund.service';
-import { FundRankQueryDto, FundPositionQueryDto } from './dto/fund-query.dto';
+import {
+  FundRankQueryDto,
+  FundPositionQueryDto,
+  FundRealTimeEstimateQueryDto,
+} from './dto/fund-query.dto';
 
 /**
  * 基金控制器
@@ -36,5 +40,36 @@ export class FundController {
   @Get('position')
   async getFundPosition(@Query() query: FundPositionQueryDto) {
     return this.fundService.getFundPosition(query);
+  }
+
+  /**
+   * 获取基金实时估算涨幅
+   * GET /api/fund/realtime-estimate?code=000001
+   * 
+   * 返回结构:
+   * {
+   *   code: 200,
+   *   message: "success",
+   *   data: {
+   *     fundCode: "000001",
+   *     fundName: "基金名称",
+   *     estimatedChange: 1.23,        // 估算实时涨幅 (%)
+   *     totalPositionRatio: 85.5,     // 参与计算的仓位占比 (%)
+   *     positionDate: "2025Q1",       // 持仓披露日期
+   *     contributions: [              // 持仓贡献详情
+   *       {
+   *         stockCode: "300502",
+   *         stockName: "新易盛",
+   *         ratio: 9.83,              // 持仓比例 (%)
+   *         changePercent: 5.73,      // 实时涨跌 (%)
+   *         contribution: 0.5632      // 贡献 (%)
+   *       }
+   *     ]
+   *   }
+   * }
+   */
+  @Get('realtime-estimate')
+  async getFundRealTimeEstimate(@Query() query: FundRealTimeEstimateQueryDto) {
+    return this.fundService.getFundRealTimeEstimate(query);
   }
 }
