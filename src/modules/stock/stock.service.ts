@@ -5,6 +5,7 @@ import {
   StockDetailsQueryDto,
   StockKlineQueryDto,
   StockTrendsQueryDto,
+  StockMinQueryDto,
 } from './dto/stock-query.dto';
 
 /**
@@ -13,6 +14,8 @@ import {
  */
 @Injectable()
 export class StockService {
+  private readonly autostockBaseUrl = 'https://api.autostock.cn/v1';
+
   constructor(private readonly httpService: EastMoneyHttpService) {}
 
   /**
@@ -72,6 +75,17 @@ export class StockService {
       iscr: 0,
       iscca: 0,
       ndays: params.ndays || '1',
+    });
+  }
+
+  /**
+   * 获取股票分时信息
+   * 调用 autostock API 获取股票分时数据
+   */
+  async getStockMin(params: StockMinQueryDto) {
+    const url = `${this.autostockBaseUrl}/stock/min`;
+    return this.httpService.get(url, {
+      code: params.code,
     });
   }
 }

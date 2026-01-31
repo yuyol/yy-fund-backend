@@ -75,3 +75,14 @@ export class StockTrendsQueryDto extends StockBaseQueryDto {
   @IsString()
   ndays?: string;
 }
+
+/**
+ * 股票分时信息查询参数
+ */
+export class StockMinQueryDto {
+  /**
+   * 股票代码
+   */
+  @IsString()
+  code: string;
+}

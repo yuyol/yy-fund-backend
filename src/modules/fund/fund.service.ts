@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { EastMoneyHttpService } from '@/common/services/eastmoney-http.service';
-import { FundRankQueryDto } from './dto/fund-query.dto';
+import { FundRankQueryDto, FundPositionQueryDto } from './dto/fund-query.dto';
 
 /**
  * 基金服务
@@ -8,6 +8,8 @@ import { FundRankQueryDto } from './dto/fund-query.dto';
  */
 @Injectable()
 export class FundService {
+  private readonly autostockBaseUrl = 'https://api.autostock.cn/v1';
+
   constructor(private readonly httpService: EastMoneyHttpService) {}
 
   /**
@@ -25,10 +27,24 @@ export class FundService {
     });
   }
 
+  /**
+   * 获取基金详情
+   */
   async getFundMNDetailInformation(params: any = {}) {
     const url = 'https://fundmobapi.eastmoney.com/FundMNewApi/FundMNDetailInformation';
     return this.httpService.get(url, {
       FCODE: params.FCODE,
+    });
+  }
+
+  /**
+   * 获取基金持仓
+   * 调用 autostock API 获取基金持仓数据
+   */
+  async getFundPosition(params: FundPositionQueryDto) {
+    const url = `${this.autostockBaseUrl}/fund/position`;
+    return this.httpService.get(url, {
+      code: params.code,
     });
   }
 }

@@ -1,6 +1,6 @@
 import { Controller, Get, Query } from '@nestjs/common';
 import { FundService } from './fund.service';
-import { FundRankQueryDto } from './dto/fund-query.dto';
+import { FundRankQueryDto, FundPositionQueryDto } from './dto/fund-query.dto';
 
 /**
  * 基金控制器
@@ -27,5 +27,14 @@ export class FundController {
   async getFundMNDetailInformation(@Query() query: any = {}) {
     console.log('query', query);
     return this.fundService.getFundMNDetailInformation(query);
+  }
+
+  /**
+   * 获取基金持仓
+   * GET /api/fund/position?code=000001
+   */
+  @Get('position')
+  async getFundPosition(@Query() query: FundPositionQueryDto) {
+    return this.fundService.getFundPosition(query);
   }
 }

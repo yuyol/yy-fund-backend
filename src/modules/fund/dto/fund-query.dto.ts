@@ -1,6 +1,17 @@
 import { IsString, IsOptional } from 'class-validator';
 
 /**
+ * 基金持仓查询参数
+ */
+export class FundPositionQueryDto {
+  /**
+   * 基金代码
+   */
+  @IsString()
+  code: string;
+}
+
+/**
  * 基金排行查询参数
  */
 export class FundRankQueryDto {

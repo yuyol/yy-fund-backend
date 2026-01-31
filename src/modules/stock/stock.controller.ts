@@ -5,6 +5,7 @@ import {
   StockDetailsQueryDto,
   StockKlineQueryDto,
   StockTrendsQueryDto,
+  StockMinQueryDto,
 } from './dto/stock-query.dto';
 
 /**
@@ -49,5 +50,14 @@ export class StockController {
   @Get('trends')
   async getStockTrends(@Query() query: StockTrendsQueryDto) {
     return this.stockService.getStockTrends(query);
+  }
+
+  /**
+   * 获取股票分时信息
+   * GET /api/stock/min?code=000001
+   */
+  @Get('min')
+  async getStockMin(@Query() query: StockMinQueryDto) {
+    return this.stockService.getStockMin(query);
   }
 }
