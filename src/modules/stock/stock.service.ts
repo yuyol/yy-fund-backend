@@ -1,4 +1,5 @@
 import { Injectable } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
 import { EastMoneyHttpService } from '@/common/services/eastmoney-http.service';
 import {
   StockDetailQueryDto,
@@ -16,7 +17,7 @@ import {
 export class StockService {
   private readonly autostockBaseUrl = 'https://api.autostock.cn/v1';
 
-  constructor(private readonly httpService: EastMoneyHttpService) {}
+  constructor(private readonly httpService: EastMoneyHttpService, private readonly configService: ConfigService) {}
 
   /**
    * 获取股票详情
@@ -84,8 +85,10 @@ export class StockService {
    */
   async getStockMin(params: StockMinQueryDto) {
     const url = `${this.autostockBaseUrl}/stock/min`;
+    const token = this.configService.get<string>('AUTOSTOCK_TOKEN');
     return this.httpService.get(url, {
       code: params.code,
+      ...(token && { token })
     });
   }
 }
