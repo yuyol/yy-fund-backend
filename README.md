@@ -39,53 +39,22 @@ src/
 ### 安装依赖
 
 ```bash
-pnpm install
+npm install
+
+pip install akshare --upgrade
 ```
 
 ### 开发模式
 
 ```bash
-pnpm start:dev
+npm start
 ```
 
 ### 生产构建
 
 ```bash
-pnpm build
-pnpm start:prod
-```
-
-## API 接口
-
-### 股票接口
-
-| 接口 | 方法 | 路径 | 描述 |
-|------|------|------|------|
-| 股票详情 | GET | `/api/stock/info` | 获取股票基本信息 |
-| 交易明细 | GET | `/api/stock/details` | 获取股票交易明细 |
-| K线数据 | GET | `/api/stock/kline` | 获取股票K线数据 |
-| 走势图 | GET | `/api/stock/trends` | 获取股票走势图数据 |
-
-#### 参数说明
-
-- `type`: 股票类型 (0: 深圳, 1: 上海)
-- `code`: 股票代码
-
-示例:
-```
-GET /api/stock/info?type=0&code=000001
-GET /api/stock/kline?type=0&code=000001&klt=101
-```
-
-### 基金接口
-
-| 接口 | 方法 | 路径 | 描述 |
-|------|------|------|------|
-| 基金排行 | GET | `/api/fund/rank` | 获取基金排行榜 |
-
-示例:
-```
-GET /api/fund/rank?FundType=0&pageIndex=1&pageSize=20
+npm build
+npm start:prod
 ```
 
 ## Docker 部署
