@@ -1,40 +1,26 @@
-# Build stage
-FROM node:20-alpine AS builder
+# 使用 Node + Python 的基础镜像
+FROM node:18-bullseye
 
+# 安装 Python3 和 pip
+RUN apt-get update && apt-get install -y python3 python3-pip
+
+# 设置工作目录
 WORKDIR /app
 
-# 复制 package 文件
+# 复制 package.json
 COPY package*.json ./
-COPY pnpm-lock.yaml ./
 
-# 安装 pnpm 并安装依赖
-RUN npm install -g pnpm && pnpm install --frozen-lockfile
+# 1. npm install
+RUN npm install
 
-# 复制源代码
+# 复制全部代码
 COPY . .
 
-# 构建
-RUN pnpm build
+# 2. pip install akshare --upgrade
+RUN pip3 install akshare --upgrade
 
-# Production stage
-FROM node:20-alpine AS production
+# 3. npm run build
+RUN npm run build
 
-WORKDIR /app
-
-# 复制 package 文件
-COPY package*.json ./
-COPY pnpm-lock.yaml ./
-
-# 安装 pnpm 并只安装生产依赖
-RUN npm install -g pnpm && pnpm install --prod --frozen-lockfile
-
-# 从 builder 阶段复制构建产物
-COPY --from=builder /app/dist ./dist
-
-# 设置环境变量
-ENV NODE_ENV=production
-ENV PORT=3000
-
-EXPOSE 3000
-
-CMD ["node", "dist/main"]
+# 启动命令
+CMD ["node", "dist/main.js"]
