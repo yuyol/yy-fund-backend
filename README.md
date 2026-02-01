@@ -12,6 +12,12 @@
 - **语言**: TypeScript
 - **验证**: class-validator + class-transformer
 
+## demo 页面样例
+
+![demo](./src/assets/images/demo-dark.png)
+![demo](./src/assets/images/demo-light.png)
+
+
 ## 项目结构
 
 ```
