@@ -1,6 +1,7 @@
 # YY Fund Backend
 
-基于 NestJS + Fastify 的基金/股票数据 API 服务。
+基于 NestJS + Fastify 的基金实时预估涨幅计算工具
+适用于A股股票基金
 
 ## 技术栈
 
