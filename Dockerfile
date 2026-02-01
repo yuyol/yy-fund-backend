@@ -1,8 +1,9 @@
 # 使用 Node + Python 的基础镜像
 FROM node:18-bullseye
 
-# 安装 Python3 和 pip
-RUN apt-get update && apt-get install -y python3 python3-pip
+# 安装 Python3 和 pip，并创建 python 软链接
+RUN apt-get update && apt-get install -y python3 python3-pip \
+    && ln -s /usr/bin/python3 /usr/bin/python
 
 # 设置工作目录
 WORKDIR /app
