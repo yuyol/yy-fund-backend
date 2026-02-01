@@ -14,6 +14,8 @@
 
 ## demo 页面样例
 
+demo地址: https://yy-fund-frontend.vercel.app/
+
 ![demo](./src/assets/images/demo-dark.png)
 ![demo](./src/assets/images/demo-light.png)
 
