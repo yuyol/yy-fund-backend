@@ -1,7 +1,9 @@
 # YY Fund Backend
 
-基于 NestJS + Fastify 的基金实时预估涨幅计算工具
-适用于A股股票基金
+基于 NestJS + Fastify 的A股股票基金实时预估涨幅计算工具
+适用于A股股票基金，通过整合多个 api 接口，实时通过基金持仓信息计算基金预估实时涨幅。
+
+前端代码: https://github.com/yuyol/yy-fund-frontend
 
 ## 技术栈
 
