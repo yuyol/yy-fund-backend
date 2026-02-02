@@ -1,7 +1,26 @@
-import { IsString, IsOptional } from 'class-validator';
+import { IsString, IsOptional, IsArray, ArrayMaxSize, ValidateNested } from 'class-validator';
+import { Type } from 'class-transformer';
 
 /**
- * 基金实时估算查询参数
+ * 单个基金查询参数
+ */
+export class FundQueryItem {
+  /**
+   * 基金代码
+   */
+  @IsString()
+  code: string;
+
+  /**
+   * 指定年份，如 "2026"
+   */
+  @IsOptional()
+  @IsString()
+  date?: string;
+}
+
+/**
+ * 基金实时估算查询参数（单个，保留兼容）
  */
 export class FundRealTimeEstimateQueryDto {
   /**
@@ -16,6 +35,20 @@ export class FundRealTimeEstimateQueryDto {
   @IsOptional()
   @IsString()
   date?: string;
+}
+
+/**
+ * 批量基金实时估算查询参数
+ */
+export class FundRealTimeEstimateBatchDto {
+  /**
+   * 基金列表，最多5个
+   */
+  @IsArray()
+  @ArrayMaxSize(5, { message: '最多支持5个基金同时查询' })
+  @ValidateNested({ each: true })
+  @Type(() => FundQueryItem)
+  funds: FundQueryItem[];
 }
 
 /**
